@@ -12,7 +12,7 @@ const App = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/blogs', {
+      const response = await axios.post('https://blogs-ooi1.onrender.com/api/v1/blogs', {
         topic,
         content: blogContent,
         createdAt: new Date().toISOString(),

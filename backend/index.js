@@ -32,7 +32,7 @@ app.post('/api/v1/blogs', async (req, res) => {
 
 // (Optional) Get all blogs
 app.get('/api/v1/blogs', async (req, res) => {
-  const blogs = await Blogs.find().sort({ createdAt: -1 });
+  const blogs = await Blog.find().sort({ createdAt: -1 });
   res.json(blogs);
 });
 
