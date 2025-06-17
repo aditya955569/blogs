@@ -4,6 +4,7 @@ import axios from 'axios';
 const App = () => {
   const [topic, setTopic] = useState('');
   const [blogContent, setBlogContent] = useState('');
+  const [authorName,setAuthorName]=useState('');  
   const textareaRef = useRef(null);
   const handleSubmit = async () => {
     if (!topic.trim() || !blogContent.trim()) {
@@ -12,10 +13,11 @@ const App = () => {
     }
 
     try {
-      const response = await axios.post('https://blogs-ooi1.onrender.com/api/v1/blogs', {
+      const response = await axios.post('http://localhost:5000/api/v1/blogs', {
         topic,
         content: blogContent,
         createdAt: new Date().toISOString(),
+        authorName:authorName
       });
 
       if (response.status === 200 || response.status === 201) {
@@ -97,7 +99,18 @@ const App = () => {
           dangerouslySetInnerHTML={{ __html: marked(blogContent) }}
         />
       </div>
+      <h1 style={styles.header}>Author Name</h1>
 
+      <div style={styles.fieldContainer}>
+        <label style={styles.label}>Author</label>
+        <input
+          type="text"
+          placeholder="Enter Author's Name"
+          value={authorName}
+          onChange={(e) => setAuthorName(e.target.value)}
+          style={styles.input}
+        />
+      </div>
       <button onClick={handleSubmit} style={styles.uploadButton}>
         🚀 Upload Blog
       </button>

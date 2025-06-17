@@ -11,9 +11,13 @@ const blogSchema = new mongoose.Schema({
         required: true,
     },
     createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+        type: Date,
+        default: Date.now,
+    },
+    authorName: {
+        type: String,
+        required: true
+    }
 });
 
 const Blog = mongoose.model('Blog', blogSchema);
