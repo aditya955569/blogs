@@ -19,11 +19,11 @@ const App = () => {
         createdAt: new Date().toISOString(),
         authorName:authorName
       });
-
       if (response.status === 200 || response.status === 201) {
         alert('Blog uploaded successfully!');
         setTopic('');
         setBlogContent('');
+        setAuthorName('');
       } else {
         alert('Something went wrong.');
       }
