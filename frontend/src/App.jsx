@@ -1,11 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { marked } from 'marked';
 import axios from 'axios';
+//https://blogs-ooi1.onrender.com/api/v1/blogs
 const App = () => {
   const [topic, setTopic] = useState('');
   const [blogContent, setBlogContent] = useState('');
-  const [authorName,setAuthorName]=useState('');  
+  const [authorName,setAuthorName]=useState('');
+  const [imageURL,setImageURL]=useState("");  
   const textareaRef = useRef(null);
+  const [uploaded,setUploaded]=useState(false);
   const handleSubmit = async () => {
     if (!topic.trim() || !blogContent.trim()) {
       alert('Please fill in both topic and content.');
@@ -17,13 +20,16 @@ const App = () => {
         topic,
         content: blogContent,
         createdAt: new Date().toISOString(),
-        authorName:authorName
+        authorName:authorName,
+        imageURL:imageURL
       });
       if (response.status === 200 || response.status === 201) {
         alert('Blog uploaded successfully!');
         setTopic('');
         setBlogContent('');
         setAuthorName('');
+        setImageURL('');
+        setUploaded(false);
       } else {
         alert('Something went wrong.');
       }
@@ -54,7 +60,28 @@ const App = () => {
       textarea.setSelectionRange(start + before.length, start + before.length + selectedText.length);
     }, 0);
   };
+  const handleImageUpload = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
 
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', 'ml_default'); // from Cloudinary
+
+  try {
+    const res = await axios.post(
+      'https://api.cloudinary.com/v1_1/dyxpbwa7d/image/upload',
+      formData
+    );
+
+    const imageUrl = res.data.secure_url;
+    setImageURL(imageUrl);
+    setUploaded(true);
+  } catch (err) {
+    alert('Image upload failed');
+    console.error(err);
+  }
+};
   return (
     <div style={styles.container}>
       <h1 style={styles.header}>📝 Upload Blog</h1>
@@ -111,6 +138,10 @@ const App = () => {
           style={styles.input}
         />
       </div>
+      <input type="file" accept="image/*" onChange={handleImageUpload} />
+      {uploaded==true?
+      <div>
+      <img src={imageURL} style={{height:'200px', width:'150px', marginTop:'10px'}}/></div>:<></>}
       <button onClick={handleSubmit} style={styles.uploadButton}>
         🚀 Upload Blog
       </button>

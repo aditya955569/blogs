@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.post('/api/v1/blogs', async (req, res) => {
   try {
-    const { topic, content, createdAt,authorName } = req.body;
+    const { topic, content, createdAt,authorName,imageURL } = req.body;
 
     if (!topic || !content) {
       return res.status(400).json({ error: 'Topic and content are required.' });
@@ -20,7 +20,8 @@ app.post('/api/v1/blogs', async (req, res) => {
       title: topic,
       content,
       createdAt,
-      authorName
+      authorName,
+      imageURL
     });
 
     await blog.save();
