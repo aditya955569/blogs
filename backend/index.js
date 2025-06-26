@@ -1,4 +1,4 @@
-const Blog=require('./db')
+const {Blog,Intern}=require('./db')
 const express = require('express');
 const cors = require("cors");
 const mongoose = require('mongoose');
@@ -84,6 +84,29 @@ app.get('/api/v1/blogs', async (req, res) => {
   res.json(blogs);
 });
 
+app.post('/api/v1/interns',async(req,res)=>{
+    try{
+        const { name,email,college,location,year,resume } = req.body;
+        const intern = new Intern({
+            name,
+            email,
+            college,
+            location,
+            year,
+            resume
+        });
+
+        await intern.save();
+        res.status(201).json({ message: 'Intern data saved successfully!', intern });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Server error while saving blog' });
+    }
+})
+app.get('/api/v1/interns', async (req, res) => {
+  const intern = await Intern.find().sort({ createdAt: -1 });
+  res.json(intern);
+});
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
