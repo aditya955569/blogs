@@ -1,4 +1,4 @@
-const {Blog,Intern}=require('./db')
+const {Blog,Intern,Advocate}=require('./db')
 const express = require('express');
 const cors = require("cors");
 const mongoose = require('mongoose');
@@ -78,12 +78,15 @@ app.delete('/api/v1/blogs/:id', async (req, res) => {
     res.status(500).json({ error: 'Server error while deleting blog' });
   }
 });
-// (Optional) Get all blogs
+
 app.get('/api/v1/blogs', async (req, res) => {
   const blogs = await Blog.find().sort({ createdAt: -1 });
   res.json(blogs);
 });
 
+
+
+//interns api
 app.post('/api/v1/interns',async(req,res)=>{
     try{
         const { name,email,college,location,year,resume } = req.body;
@@ -100,12 +103,33 @@ app.post('/api/v1/interns',async(req,res)=>{
         res.status(201).json({ message: 'Intern data saved successfully!', intern });
     }catch(error){
         console.error(error);
-        res.status(500).json({ error: 'Server error while saving blog' });
+        res.status(500).json({ error: 'Server error while saving intern data' });
     }
 })
 app.get('/api/v1/interns', async (req, res) => {
   const intern = await Intern.find().sort({ createdAt: -1 });
   res.json(intern);
+});
+
+//advocates
+
+app.post('/api/v1/advocates',async(req,res)=>{
+    try{
+        const { name,phoneNumber,email,pincode,bcrn,district,domain } = req.body;
+        const advocate = new Advocate({
+            name,phoneNumber,email,pincode,bcrn,district,domain
+        });
+
+        await advocate.save();
+        res.status(201).json({ message: 'Advocate data saved successfully!', intern });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Server error while saving advocate data' });
+    }
+})
+app.get('/api/v1/advocates', async (req, res) => {
+  const advocate = await Advocate.find().sort({ createdAt: -1 });
+  res.json(advocate);
 });
 // Start the server
 const PORT = process.env.PORT || 5000;

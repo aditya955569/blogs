@@ -57,8 +57,44 @@ const internSchema = new mongoose.Schema({
     },
 });
 
+
+const advocateSchema=new mongoose.Schema({
+    name:{
+        type: String,
+        required: true
+    },
+    phoneNumber:{
+        type:String,
+        required:true
+    },
+    email:{
+        type:String,
+    },
+    pincode:{
+        type:String,
+        required:true
+    },
+    bcrn:{
+        type:String,
+        required:true,
+    },
+    district:{
+        type:String,
+        required:true,
+    },
+    domain:{
+        type:String,
+        required:true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+})
 const Intern = mongoose.model('Interns', internSchema);
 
 const Blog = mongoose.model('Blog', blogSchema);
 
-module.exports = {Blog,Intern};
+const Advocate=mongoose.model('Advocate',advocateSchema);
+
+module.exports = {Blog,Intern,Advocate};
