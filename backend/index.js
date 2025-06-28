@@ -121,7 +121,7 @@ app.post('/api/v1/advocates',async(req,res)=>{
         });
 
         await advocate.save();
-        res.status(201).json({ message: 'Advocate data saved successfully!', intern });
+        res.status(201).json({ message: 'Advocate data saved successfully!', advocate });
     }catch(error){
         console.error(error);
         res.status(500).json({ error: 'Server error while saving advocate data' });
