@@ -36,6 +36,9 @@ const AllBlogs = () => {
 
                 <>
 
+                    <button onClick={()=>{
+                        navigate('/addBlog')
+                    }}>Add Blog</button>
                     {blogs.map((blog, id) => {
                         const maxLength = 100; // max content characters to display
                         const trimmedContent = blog.content.length > maxLength
