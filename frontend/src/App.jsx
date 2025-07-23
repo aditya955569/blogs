@@ -7,6 +7,7 @@ import Landing from "./pages/Landing";
 import Advocates from "./pages/Advocates";
 import CompanyAdvocates from "./pages/CompanyAdvocates";
 import AddAdvocate from "./pages/AddAdvocate";
+import EditAdvocate from "./pages/EditAdvocate";
 //https://blogs-ooi1.onrender.com/api/v1/blogs
 const App = () => {
   return(
@@ -20,6 +21,7 @@ const App = () => {
       <Route path="/advocates" element={<Advocates />} />
       <Route path="/companyAdvocates" element={<CompanyAdvocates/>}/>
       <Route path="/addCompanyAdvocate" element={<AddAdvocate/>}/>
+      <Route path="/editAdvocate/:id" element={<EditAdvocate />} />
     </Routes>
   </BrowserRouter>
   )
