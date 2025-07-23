@@ -4,26 +4,26 @@ import EditBlog from './EditBlog';
 import { useNavigate } from 'react-router-dom';
 
 const AllBlogs = () => {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const [blogs, setBlogs] = useState();
     const [loading, setLoading] = useState(true);
     async function fetchData() {
-            try {
-                const response = await axios.get("https://blogs-ooi1.onrender.com/api/v1/blogs");
-                console.log(response);
-                setBlogs(response.data);
-                setLoading(true);
-            } catch (error) {
-                console.log(error);
-            }
+        try {
+            const response = await axios.get("https://blogs-ooi1.onrender.com/api/v1/blogs");
+            console.log(response);
+            setBlogs(response.data);
+            setLoading(true);
+        } catch (error) {
+            console.log(error);
         }
+    }
     async function deleteBlog(id) {
-        try{
-        const response=await axios.delete(`https://blogs-ooi1.onrender.com/api/v1/blogs/${id}`);
-        alert("Blog deleted successfully!")
-        setBlogs();
-        fetchData();
-        }catch(error){
+        try {
+            const response = await axios.delete(`https://blogs-ooi1.onrender.com/api/v1/blogs/${id}`);
+            alert("Blog deleted successfully!")
+            setBlogs();
+            fetchData();
+        } catch (error) {
             alert("Failed to delete blog");
         }
     }
@@ -36,7 +36,7 @@ const AllBlogs = () => {
 
                 <>
 
-                    <button onClick={()=>{
+                    <button onClick={() => {
                         navigate('/addBlog')
                     }}>Add Blog</button>
                     {blogs.map((blog, id) => {
@@ -63,7 +63,7 @@ const AllBlogs = () => {
                                 <button style={{ fontSize: '20px', marginBottom: '8px' }} onClick={() => {
                                     navigate(`/editBlog/${blog._id}`, { state: blog });
                                 }}>Edit</button>
-                                <button style={{ fontSize: '20px', marginBottom: '8px' }} onClick={()=>deleteBlog(blog._id)}>Delete Blog</button>
+                                <button style={{ fontSize: '20px', marginBottom: '8px' }} onClick={() => deleteBlog(blog._id)}>Delete Blog</button>
                             </div>
                         );
                     })}

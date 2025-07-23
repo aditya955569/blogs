@@ -1,4 +1,4 @@
-const {Blog,Intern,Advocate}=require('./db')
+const {Blog,Intern,Advocate,OurAdvocates}=require('./db')
 const express = require('express');
 const cors = require("cors");
 const mongoose = require('mongoose');
@@ -131,6 +131,28 @@ app.get('/api/v1/advocates', async (req, res) => {
   const advocate = await Advocate.find().sort({ createdAt: -1 });
   res.json(advocate);
 });
+
+//get all our advocates
+
+app.post('/api/v1/companyAdvocates',async(req,res)=>{
+    try{
+        const { name,domain,imageURL,experience } = req.body;
+        const ourAdvocate = new OurAdvocates({
+            name,domain,imageURL,experience
+        });
+
+        await ourAdvocate.save();
+        res.status(201).json({ message: 'Advocate data saved successfully!', ourAdvocate });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Server error while saving advocate data' });
+    }
+})
+app.get('/api/v1/companyAdvocates', async (req, res) => {
+  const advocate = await OurAdvocates.find().sort({ experience });
+  res.json(advocate);
+});
+
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

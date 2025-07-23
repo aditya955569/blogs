@@ -14,6 +14,9 @@ const Landing = () => {
       <button onClick={()=>{
         navigate('/advocates')
       }}>Advocates</button>
+      <button onClick={()=>{
+        navigate('/companyAdvocates')
+      }}>Company Advocates</button>
     </div>
   )
 }

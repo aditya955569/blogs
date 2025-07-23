@@ -91,10 +91,43 @@ const advocateSchema=new mongoose.Schema({
         default: Date.now,
     },
 })
+
+const companyadvocateSchema=new mongoose.Schema({
+    name:{
+        type: String,
+        required: true
+    },
+    phoneNumber:{
+        type:String,
+    },
+    email:{
+        type:String,
+    },
+    domain:{
+        type:String,
+        required:true
+    },
+    imageURL: {
+        type:String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    experience:{
+        type:Number,
+        default:true
+    }
+})
+
+
 const Intern = mongoose.model('Interns', internSchema);
 
 const Blog = mongoose.model('Blog', blogSchema);
 
 const Advocate=mongoose.model('Advocate',advocateSchema);
 
-module.exports = {Blog,Intern,Advocate};
+const OurAdvocates=mongoose.model('OurAdvocates',companyadvocateSchema);
+
+module.exports = {Blog,Intern,Advocate,OurAdvocates};

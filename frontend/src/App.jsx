@@ -5,6 +5,8 @@ import AllBlogs from "./pages/AllBlogs";
 import Intern from "./pages/Intern";
 import Landing from "./pages/Landing";
 import Advocates from "./pages/Advocates";
+import CompanyAdvocates from "./pages/CompanyAdvocates";
+import AddAdvocate from "./pages/AddAdvocate";
 //https://blogs-ooi1.onrender.com/api/v1/blogs
 const App = () => {
   return(
@@ -16,6 +18,8 @@ const App = () => {
       <Route path="/editBlog/:id" element={<EditBlog />} />
       <Route path="/interns" element={<Intern />} />
       <Route path="/advocates" element={<Advocates />} />
+      <Route path="/companyAdvocates" element={<CompanyAdvocates/>}/>
+      <Route path="/addCompanyAdvocate" element={<AddAdvocate/>}/>
     </Routes>
   </BrowserRouter>
   )
